@@ -17,11 +17,7 @@ export class HeroesComponent implements OnInit {
   selectedHero: Hero;
 
   onSelect(hero: Hero): void {
-    // adding a toggle effect in addition to docs effect
-    if (! this.selectedHero)
-      this.selectedHero = hero;
-    else
-      this.selectedHero = null;
+    this.selectedHero = hero;
   }
 
   ngOnInit() {
