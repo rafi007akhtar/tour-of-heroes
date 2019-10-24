@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Hero } from './hero';
 import { HEROES } from '../mock-heroes';
+import { NONE_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-heroes',
@@ -16,7 +17,11 @@ export class HeroesComponent implements OnInit {
   selectedHero: Hero;
 
   onSelect(hero: Hero): void {
-    this.selectedHero = hero;
+    // adding a toggle effect in addition to docs effect
+    if (! this.selectedHero)
+      this.selectedHero = hero;
+    else
+      this.selectedHero = null;
   }
 
   ngOnInit() {
