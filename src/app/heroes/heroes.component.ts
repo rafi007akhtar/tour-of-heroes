@@ -20,7 +20,6 @@ export class HeroesComponent implements OnInit {
   }
 
   getHeroes(): void {
-    // this.heroes = this.heroService.getHeroes();  // uncomment when not using observable
     this.heroService.getHeroes()
         .subscribe(heroes => this.heroes = heroes);
   }
