@@ -83,4 +83,19 @@ export class HeroService {
       catchError(this.handleError<any>("update hero"))
     );
   }
+
+  /**
+   * Delete a hero, identified by either its id or the hero itself
+   * @param hero - [Hero|number] the hero or its id to be deleted
+   */
+  deleteHero(hero: Hero | number): Observable<Hero> {
+    let id = typeof hero == "number" ? hero : hero.id;
+    let url = `${this.heroesUrl}/${id}`;
+
+    return this.http.delete<Hero>(url, this.httpOptions)
+    .pipe(
+      tap(_ => this.log(`deleted hero with id=${id}`)),
+      catchError(this.handleError<Hero>("deleteHero"))
+    );
+  }
 }
