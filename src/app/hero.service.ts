@@ -74,6 +74,24 @@ export class HeroService {
   }
 
   /**
+   * Search for a hero through its substring
+   * @param term - [string] the term to search for
+   */
+  searchHero(term: string): Observable<Hero[]> {
+    if (! term) { return of([]); }
+
+    let url = `${this.heroesUrl}/?name=${term}`;
+    return this.http.get<Hero[]>(url, this.httpOptions).pipe(
+      tap((heroes: Hero[]) => {
+        heroes.length
+          ? this.log(`found heroes matching ${term}`)
+          : this.log(`no heroes found matching ${term}`);
+      }),
+      catchError(this.handleError<Hero[]>("searchHero", []))
+    );
+  }
+
+  /**
    * Update a hero to a new name
    * @param hero - [Hero] the hero to be updated
    */
