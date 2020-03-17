@@ -21,6 +21,16 @@ export class HeroSearchComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.heroes$ = this.searchTerms.pipe(
+      // wait for 0.3s before considering next user keystroke
+      debounceTime(300),
+
+      // ignore new term if it is same as the old term
+      distinctUntilChanged(),
+
+      // perform a new search every time the search term changes
+      switchMap((term: string) => this.heroService.searchHero(term))
+    );
   }
 
 }
